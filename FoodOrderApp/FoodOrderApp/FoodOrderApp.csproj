@@ -5,7 +5,7 @@
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>foodorder.pfx</AssemblyOriginatorKeyFile>
+    <!--<AssemblyOriginatorKeyFile>foodorder.pfx</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
