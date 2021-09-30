@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:DemoApp.Helpers"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:FoodOrderApp.ViewModels"
+             BackgroundColor="LimeGreen"
+             mc:Ignorable="d"
+             x:Class="FoodOrderApp.Views.LogoutView">
+    <ContentPage.BindingContext>
+        <vm:LogoutViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Text="Burger Queen" TextColor="WhiteSmoke" FontSize="40" HorizontalOptions="Center"
+                   VerticalOptions="Start" Grid.Row="0" FontFamily="CabinSketch"/>
+            <ImageButton Source="{FontImage FontFamily=FontAwesome, Color=White, Glyph={x:Static helpers:IconFont.ArrowLeft}}"
+                         Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Clicked="ImageButton_Clicked"
+                         Margin="10,30" Aspect="AspectFit" BackgroundColor="LimeGreen"/>
+            <pancake:PancakeView Grid.Row="1" CornerRadius="60,60,0,0" BackgroundColor="WhiteSmoke">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <StackLayout IsVisible="{Binding IsCartExists}">
+                        <Label Text="Cart is not empty" TextColor="Black" FontSize="18" HorizontalOptions="Center"/>
+                        <Label Text="{Binding UserCartItemCount, StringFormat='Your cart contains {0} items'}" FontSize="18"
+                               HorizontalOptions="Center"/>
+                    </StackLayout>
+                    <StackLayout Spacing="20">
+                        <Label Text="Are you sure you want to logout?" FontSize="18" TextColor="Black" HorizontalOptions="Center"/>
+                        <StackLayout Orientation="Horizontal" Spacing="20">
+                            <Button Text="Yes, Logout" BackgroundColor="Red" TextColor="WhiteSmoke" CornerRadius="30"
+                                    WidthRequest="150" Command="{Binding LogoutCommand}"/>
+                            <Button Text="No, Go to Cart" BackgroundColor="Green" TextColor="WhiteSmoke" CornerRadius="30"
+                                     WidthRequest="150" Command="{Binding GoToCartCommand}"/>
+                        </StackLayout>
+                    </StackLayout>                   
+                </StackLayout>
+            </pancake:PancakeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

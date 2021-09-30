@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:DemoApp.Helpers"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             BackgroundColor="LimeGreen"
+             xmlns:vm="clr-namespace:FoodOrderApp.ViewModels"
+             Visual="Material"
+             mc:Ignorable="d"
+             x:Class="FoodOrderApp.Views.OrderHistoryView">
+    <ContentPage.BindingContext>
+        <vm:OrderHistoryViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="100,*">
+            <ImageButton Source="{FontImage FontFamily=FontAwesome,Color=WhiteSmoke, Size=30,Glyph={x:Static helpers:IconFont.ArrowLeft}}"
+                         Grid.Row="0" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Center"
+                         Aspect="AspectFit" Clicked="ImageButton_Clicked"/>
+            <Label Text="Burger Queen" FontSize="30" FontFamily="CabinSketch" TextColor="WhiteSmoke" Grid.Row="0"
+                   HorizontalOptions="Center" VerticalOptions="Start"/>
+            <Label x:Name="LabelName" TextColor="WhiteSmoke" HorizontalOptions="Center" VerticalOptions="End" Margin="20,0"
+                   FontSize="Subtitle"/>
+            <pancake:PancakeView Grid.Row="1" CornerRadius="40,40,0,0"  BackgroundColor="WhiteSmoke" Padding="10">
+                <Grid>
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center"
+                                       VerticalOptions="Center" HeightRequest="50" WidthRequest="50" Color="Lime"/>
+                    <CollectionView ItemsSource="{Binding OrderDetails}" Margin="25,10,25,0" IsGrouped="True">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.EmptyViewTemplate>
+                            <DataTemplate>
+                                <Label Text="No Orders has been made yet" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </DataTemplate>
+                        </CollectionView.EmptyViewTemplate>
+                        <CollectionView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <Grid RowDefinitions="Auto, Auto" BackgroundColor="LightSlateGray" Padding="2">
+                                    <Label Text="Order ID" FontSize="Subtitle" TextColor="White" HorizontalOptions="Center"
+                                           Grid.Row="0"/>
+                                    <Label Text="{Binding OrderID}" TextColor="White" HorizontalOptions="Center" FontSize="Body"
+                                           Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+                        <CollectionView.GroupFooterTemplate>
+                            <DataTemplate>
+                                <StackLayout BackgroundColor="#eeeeee">
+                                    <Label Text="{Binding TotalCost, StringFormat='Total Cost: {0:c}'}" TextColor="Purple"
+                                       FontAttributes="Bold"/>
+                                    <BoxView HeightRequest="3" BackgroundColor="LimeGreen"/>
+                                </StackLayout>                               
+                            </DataTemplate>
+                        </CollectionView.GroupFooterTemplate>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="10" Padding="10" HasShadow="False" BorderColor="LightSlateGray">
+                                    <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+                                        <Label Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Order Details ID:"/>
+                                                    <Span Text="{Binding OrderDetailsID}" TextColor="LimeGreen" FontAttributes="Bold"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Product Name:"/>
+                                                    <Span Text="{Binding ProductName}" TextColor="LimeGreen" FontAttributes="Bold"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Quantity:"/>
+                                                    <Span Text="{Binding Quantity}" TextColor="LimeGreen" FontAttributes="Bold"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Price:"/>
+                                                    <Span Text="{Binding Price, StringFormat='{0:c}'}" TextColor="LimeGreen" FontAttributes="Bold"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </pancake:PancakeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:DemoApp.Helpers"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             BackgroundColor="LimeGreen"
+             Visual="Material"
+             mc:Ignorable="d"
+             x:Class="FoodOrderApp.Views.OrdersView">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto, *">           
+            <Label Grid.Row="0" Text="Burger Queen" FontSize="40" TextColor="WhiteSmoke"
+                   VerticalOptions="Center" HorizontalOptions="Center" FontFamily="CabinSketch"/>
+            <Label Grid.Row="0" x:Name="LabelName" FontSize="Subtitle" HorizontalOptions="Center"  VerticalOptions="End"
+                   TextColor="WhiteSmoke"/>
+            <ImageButton Source="{FontImage FontFamily=FontAwesome, Color=White, Size=30,Glyph={x:Static helpers:IconFont.ArrowLeft}}"
+                         Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Clicked="ImageButton_Clicked"
+                         Margin="10,30" Aspect="AspectFit" BackgroundColor="Transparent"/>
+            <pancake:PancakeView Grid.Row="1" CornerRadius="60,60,0,0" BackgroundColor="White" Padding="10">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical">
+                    <Label Text="Thanks for placing an order with us. Note your order number:" FontSize="18"/>
+                    <Label x:Name="LabelOrderNumber" FontSize="18"/>
+                    <Button Text="Go To Products" CornerRadius="20" TextColor="WhiteSmoke" BackgroundColor="Purple"
+                            Clicked="Button_Clicked"/>
+                </StackLayout>
+            </pancake:PancakeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

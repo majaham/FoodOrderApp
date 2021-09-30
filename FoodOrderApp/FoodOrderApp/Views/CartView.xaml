@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:DemoApp.Helpers"
+             xmlns:vm="clr-namespace:FoodOrderApp.ViewModels"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             BackgroundColor="LimeGreen"
+             Visual="Material"
+             mc:Ignorable="d"
+             x:Class="FoodOrderApp.Views.CartView">
+    <ContentPage.BindingContext>
+        <vm:CartViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="100,*,Auto,Auto">           
+            <!--<BoxView Grid.Row="0"/>-->
+            <Label Grid.Row="0" Text="Burger Queen" FontSize="40" TextColor="WhiteSmoke"
+                   VerticalOptions="Center" HorizontalOptions="Center" FontFamily="CabinSketch"/>
+            <Label Grid.Row="0" x:Name="LabelName" FontSize="Subtitle" HorizontalOptions="Center"  VerticalOptions="End"
+                   TextColor="WhiteSmoke"/>
+            <ImageButton Source="{FontImage FontFamily=FontAwesome, Color=White, Size=30,Glyph={x:Static helpers:IconFont.ArrowLeft}}"
+                         Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Clicked="ImageButton_Clicked"
+                         Margin="10,30" Aspect="AspectFit" BackgroundColor="LimeGreen" />
+            <pancake:PancakeView Grid.Row="1" CornerRadius="60,60,0,0" Padding="20,20,10,10" BackgroundColor="WhiteSmoke">
+                <ListView x:Name="ListViewCartItems" SeparatorVisibility="None" ItemsSource="{Binding CartItems}"
+                      HasUnevenRows="True" Header="">
+                    <ListView.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="40,2*,*,30,*" RowDefinitions="Auto,Auto">                               
+                                <Label Text="ID" TextColor="Green" FontSize="Subtitle" Grid.Column="0"/>
+                                <Label Text="Name" TextColor="Green" FontSize="Subtitle" Grid.Column="1"/>
+                                <Label Text="Price" TextColor="Green" FontSize="Subtitle" Grid.Column="2"/>
+                                <Label Text="Qty" TextColor="Green" FontSize="Subtitle" Grid.Column="3"/>
+                                <Label Text="Cost" TextColor="Green" FontSize="Subtitle" Grid.Column="4"/>
+                                <BoxView Grid.Row="1" Grid.ColumnSpan="5" Color="LimeGreen" HeightRequest="2"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.HeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid ColumnDefinitions="40, 2*,*,30,*" RowDefinitions="Auto">                                       
+                                        <Label Text="{Binding ProductID}" TextColor="Black" FontSize="Body" Grid.Column="0"/>
+                                        <Label Text="{Binding ProductName}" TextColor="Black" FontSize="Body" Grid.Column="1"/>
+                                        <Label Text="{Binding Price, StringFormat='{0:c}'}" TextColor="Black" FontSize="Body" Grid.Column="2"/>
+                                        <Label Text="{Binding Quantity}" TextColor="Black" FontSize="Body" Grid.Column="3"/>
+                                        <Label Text="{Binding Cost, StringFormat='{0:c}'}}" TextColor="Black" FontSize="Body" Grid.Column="4"/>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </pancake:PancakeView>
+            <Label Text="{Binding TotalCost,StringFormat='Total Cost: {0:c}'}" FontSize="Title"
+                    Grid.Row="2" HorizontalTextAlignment="End" Margin="20,10" FontAttributes="Bold" TextColor="Black"/>
+            <pancake:PancakeView  CornerRadius="0,20,60,0"  Grid.Row="3" Margin="50,0,50,20">
+                <Button Text="Place Order" Command="{Binding PlaceOrderCommand}" BackgroundColor="Red"
+                     TextColor="WhiteSmoke" WidthRequest="200" HeightRequest="50"/>
+            </pancake:PancakeView>            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
